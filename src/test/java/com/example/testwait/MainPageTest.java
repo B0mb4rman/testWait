@@ -25,7 +25,7 @@ public class MainPageTest {
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
     }
 
     @AfterEach
@@ -35,11 +35,10 @@ public class MainPageTest {
 
     @Test
     public void testWait() {
-
         driver.get("https://demoqa.com/dynamic-properties");
         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(6));
-        WebElement disableButton = driver.findElement(By.cssSelector("#visibleAfter"));
-        wait.until(ExpectedConditions.elementToBeClickable(disableButton));
-        assertTrue(disableButton.isEnabled(), "Кнопка не стала видимой");
+       // WebElement visibleButton = driver.findElement(By.cssSelector("#visibleAfter"));
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#visibleAfter")));
+        assertTrue(driver.findElement(By.cssSelector("#visibleAfter")).isDisplayed(), "Кнопка видимая");
     }
 }
